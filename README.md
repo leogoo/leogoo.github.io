@@ -4,4 +4,6 @@
 
 ## undersocre
 
-## [知识点](https://leogoo.github.io/point.md)
+## [知识点](https://leogoo.github.io/point)
+
+## [工具（函数式）](https://leogoo.github.io/utils)
