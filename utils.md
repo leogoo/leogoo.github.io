@@ -1,9 +1,24 @@
 # Adapter
-- [ary](#ary)
-- [collectInto:传入数组参数](#collectInto)
+- [ary:忽略多余的参数](#ary)
+- [collectInto:传入参数合并成数组](#collectInto)
+- [over:对相同的参数同时执行多个函数](#over)
+- [pipeFunctions:从左至右依次执行函数](#pipeFunctions)
+- [rearg:利用indexes数组调整参数的顺序](#rearg)
+- [spreadOver:将数组参数序列化](#spreadOver)
+- [unary:只接受一个参数，忽略多余的参数](#unary)
+
+
+
+# Array
+- [chunk](#chunk)
+- [compact](#compact)
+- [countBy](#countBy)
+- [countOccurrences](#countOccurrences)
+- [deepFlatten](#deepFlatten)
+- [difference:返回第一个数组中不在第二个数组的元素](#difference)
 
 ### Adapter
-1. <div id="ary">ary:忽略多余的参数</div>
+1. <div id="ary">ary</div>
     ```
     // ...args这样写，在函数执行传入序列化参数时，塞入数组args中
     const ary = (fn, n) => (...args) => fn(...args.slice(0, n));
@@ -16,7 +31,7 @@
     ```
     const collectInto = fn => (...args) => fn(args);
     ```
-1. over
+1. <div id="over">over</div>
     ```
     const over = (...fns) => (...args) => fns.map(fn => fn.call(null, args));
 
@@ -24,7 +39,7 @@
     cosnt minMax = over(Math.min, Math.max);
     minMax(1,2,3,4,5); // [1, 5]
     ```
-1. pipeFunctions: Performs left-to-right function composition
+1. <div id="pipeFunctions">pipeFunctions</div>
     ```
     const pipeFunctions = (...fns) => fns.reduce((f, g) => (...args) => g(f(...args)));
 
@@ -34,7 +49,7 @@
     const multiplyAndAdd5 = pipeFunctions(multiply, add5);
     multiplyAndAdd5(5, 2);// 15
     ```
-1. rearg: 利用indexes数组调整参数的顺序
+1. <div id="rearg">rearg</div>
     ```
     const rearg = (fn, indexes) => (...args) =>
         fn(
@@ -55,7 +70,7 @@
     );
     rearged('b', 'c', 'a');// ['a', 'b', 'c']
     ```
-1. spreadOver
+1. <div id="spreadOver">spreadOver</div>
     ```
     const spreadOver = fn => argsArr => fn(...argsArr);
 
@@ -63,7 +78,7 @@
     const arrayMax = spreadOver(Math.max);
     arrayMax([1, 2, 3]);
     ```
-1. unary： 只接受一个参数，忽略多余的参数
+1. <div id="unary">unary</div>
     ```
     const unary = fn => val => fn(val);
 
@@ -92,7 +107,7 @@ slice(start, end)
     - slice(0)克隆数组
 
 arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的第一个元素下标
-1. chunk
+1. <div id="chunk">chunk</div>
     ```
     const chunk = (arr, size) => 
         Array.from({length: Math.ceil(arr.length / size)}, (v, i) => {
@@ -100,14 +115,14 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
             arr.slice(i * size, i * size + size)
         });
     ```
-1. compact
+1. <div id="compact">compact</div>
     ```
     const compact = arr => arr.filter(Boolean);
 
     // example
     compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]); // [ 1, 2, 3, 'a', 's', 34 ]
     ```
-1. countBy
+1. <div id="countBy">countBy</div>
     ```
     const countBy = (arr, fn) => 
         arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val, i) => {
@@ -119,7 +134,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}
     countBy(['one', 'two', 'three'], 'length'); // {3: 2, 5: 1}
     ```
-1. countOccurrences
+1. <div id="countOccurrences">countOccurrences</div>
     ```
     const countOccurrences = (arr, val) =>
         arr.reduce((a, v) => (v === val ? a + 1 : a + 0), 0);
@@ -128,14 +143,14 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3
     ```
 
-1. deepFlatten
+1. <div id="deepFlatten">deepFlatten</div>
     ```
     const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
 
     // example
     deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
     ```
-1. difference: 返回第一个数组中不在第二个数组的元素
+1. <div id="difference">difference</div>
     ```
     const difference = (a, b) => {
         const s = new Set(b);
@@ -145,14 +160,14 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     // example
     difference([1, 2, 3], [1, 2, 4]); // [3]
     ```
-1. differenceBy
+1. <div id="differenceBy">differenceBy</div>
     ```
     const differenceBy = (a, b, fn) => {
         const s = new Set(b.map(v => fn(v)));
         return a.filter(v => !s.has(fn(v)));
     }
     ```
-1. drop: 剔除左侧前n个元素
+1. <div id="drop">drop</div>: 剔除左侧前n个元素
     ```
     const drop = (arr, n = 1) => arr.slice(n);
 
@@ -161,7 +176,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     drop([1, 2, 3], 2); // [3]
     drop([1, 2, 3], 42); // []
     ```
-1. dropRight
+1. <div id="dropRight">dropRight</div>
     ```
     const dropRight = (arr, n = 1) => arr.slice(0, -n);
 
@@ -170,19 +185,19 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     dropRight([1, 2, 3], 2); // [1]
     dropRight([1, 2, 3], 42); // []
     ```
-1. everyNth
+1. <div id="everyNth">everyNth</div>
     ```
     const everyNth = (arr, Nth) => arr.filter((e, i) => i % nth === nth - 1);
     // example
     everyNth([1, 2, 3, 4, 5, 6], 2); // [ 2, 4, 6 ]
     ```
-1. filterNonUnique
+1. <div id="filterNonUnique">filterNonUnique</div>
     ```
     const filterNonUnique = arr => arr.filter(a => arr.indexOf(a) === arr.lastIndexOf(a));
     // example
     filterNonUnique([1, 2, 2, 3, 4, 4, 5]); // [1,3,5]
     ```
-1. flatten
+1. <div id="flatten">flatten</div>
     ```
     const flatten = (arr, depth = 1) =>
         depth !== 1
@@ -193,7 +208,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     flatten([1, [2], 3, 4]); // [1, 2, 3, 4]
     flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]
     ```
-1. groupBy
+1. <div id="groupBy">groupBy</div>
     ```
     const groupBy = (arr, fn) =>
         arr.map(typeof fn === 'function' ? fn : val => val[fn])
