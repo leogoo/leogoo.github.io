@@ -98,7 +98,7 @@ this.setState(function(prevState, props) {
 
 // React
 <Button onClick={clickHandler}>
-     click
+    click
 </Button>
 ```
 - 不能返回fasle来防止React中的默认行为，必须显示调用preventDefault
@@ -121,10 +121,12 @@ this.setState(function(prevState, props) {
         const name = props.name;
         return (
             <div>
-                name === 'tom' &&
-                <h1>
-                    hello tom!
-                </h1>
+                {
+                    name === 'tom' &&
+                    (<h1>
+                        hello tom!
+                    </h1>)
+                }
             </div>
         )
     ```
