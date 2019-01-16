@@ -7,8 +7,6 @@
 - [spreadOver:将数组参数序列化](#spreadOver)
 - [unary:只接受一个参数，忽略多余的参数](#unary)
 
-
-
 # Array
 - [chunk](#chunk)
 - [compact](#compact)
@@ -16,6 +14,8 @@
 - [countOccurrences](#countOccurrences)
 - [deepFlatten](#deepFlatten)
 - [difference:返回第一个数组中不在第二个数组的元素](#difference)
+- [differenceBy](#differenceBy)
+-
 
 ### Adapter
 1. <div id="ary">ary</div>
@@ -217,11 +217,11 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
                 return acc;
             }, {});
     ```
-1. initial: 返回除最后一个元素的数组
+1. <div id="initial">initial: 返回除最后一个元素的数组</div>
     ```
     const initial = arr => arr.slice(0, -1);
     ```
-1. initialize2DArray
+1. <div id="initialize2DArray">initialize2DArray</div>
     ```
     const initialize2DArray = (w, h, val = null) =>
         Array.from({length: h}).map(() => Array.from({length: w})).fill(val);
@@ -229,7 +229,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     // example
     initialize2DArray(2, 2, 0); // [[0,0], [0,0]]
     ```
-1. initializeArrayWithRange
+1. <div id="initializeArrayWithRange">initializeArrayWithRange</div>
     ```
     const initializeArrayWithRange = (end, start = 0, step = 1) =>
         Array.from({length: Math.ceil(end + 1 - start / step)}).map((v, i) => i * step + start);
@@ -239,13 +239,13 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     initializeArrayWithRange(7, 3); // [3,4,5,6,7]
     initializeArrayWithRange(9, 0, 2); // [0,2,4,6,8]
     ```
-1. intersection: 两个数组交集
+1. <div id="intersection">intersection: 两个数组交集</div>
     ```
     const intersection = (a, b) =>
         const s = new Set(b);
         return a.filter(x => s.has(x));
     ```
-1. isSorted:是否排序，1为正序，-1为降序，0为未排序
+1. <div id="isSorted">isSorted:是否排序，1为正序，-1为降序，0为未排序</div>
     ```
     const isSorted = arr => {
         const direction = arr[0] > arr[1] ? -1 : 1;
@@ -254,12 +254,12 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
             else if ((val - arr[i + 1]) * direction > 0) return 0;
     };
     ```
-1. maxN
+1. <div id="maxN">maxN</div>
     ```
     // [...arr]作用是克隆一个数组，sort会修改原数组
     const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
     ```
-1. partition: 将数组内元素分为两类
+1. <div id="partition">partition: 将数组内元素分为两类</div>
     ```
     const partition = (arr, fn) =>
         arr.reduce(
@@ -274,7 +274,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     const users = [{ user: 'barney', age: 36, active: false }, { user: 'fred', age: 40, active: true }];
     partition(users, o => o.active);
     ```
-1. reduceWhich：返回最大或最小值
+1. <div id="reduceWhich">reduceWhich：返回最大或最小值</div>
     ```
     const reduceWhich = (arr, comparator = (a, b) => a - b)) =>
         arr.reduce((a, b) => (comparator(a, b) > 0 ? b : a));
@@ -285,7 +285,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         (a, b) => a.age - b.age
     ); // {name: "Lucy", age: 9}
     ```
-1. remove:过滤数组，并在原数组中去掉这些过滤出来的值
+1. <div id="remove">remove:过滤数组，并在原数组中去掉这些过滤出来的值</div>
     ```
     const remove = (arr, func) =>
         Array.isArray(arr)
@@ -301,11 +301,11 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     console.log(remove(arr, n => n % 2 === 0)); // [ 2, 4, 6 ]
     console.log(arr);// [ 1, 5, 7, 9 ]
     ```
-1. sample: 随机返回数组元素
+1. <div id="sample">sample: 随机返回数组元素</div>
     ```
     const sample = arr => arr[Math.floor(Math.random() * arr.length)];
     ```
-1. shuffle
+1. <div id="shuffle">shuffle</div>
     ```
     const shuffle = ([...arr]) => {
         let m = arr.length;
@@ -316,11 +316,11 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return arr;
     };
     ```
-1. similarity: 交集
+1. <div id="similarity">similarity: 交集</div>
     ```
     const similarity = (arr, values) => arr.filter(v => values.includes(v));
     ```
-1. sortedIndex
+1. <div id="sortedIndex">sortedIndex</div>
     ```
     const sortedIndex = (arr, n) => {
         // 判断是否是降序
@@ -329,7 +329,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return index === -1 ? arr.length : index;
     };
     ```
-1. symmetricDifference: a与b的并集-a与b的交集
+1. <div id="symmetricDifference">symmetricDifference: a与b的并集-a与b的交集</div>
     ```
     const symmetricDifference = (a, b) => {
         const sA = new Set(a);
@@ -342,7 +342,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return [...a.filter(v => !b.includes(v)), ...b.filter(v => !a.includes(v))];
     };
     ```
-1. symmetricDifferenceWith
+1. <div id="symmetricDifferenceWith">symmetricDifferenceWith</div>
     ```
     const symmetricDifferenceWith = (a, b, comp) => [
         ...a.filter(x => b.findIndex(y => comp(x, y)) === -1),
@@ -356,21 +356,21 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         (a, b) => Math.round(a) === Math.round(b)
     ); // [1, 1.2, 3.9]
     ```
-1. tail:返回数组所有元素除了第一个
+1. <div id="tail">tail:返回数组所有元素除了第一个</div>
     ```
     const tail = arr => arr.length > 1 ? arr.slice(1) : arr;
     ```
-1. takeRight：去数组后面几位
+1. <div id="takeRight">takeRight：去数组后面几位</div>
     ```
     const takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length);
     // 等价于
     const takeRight = (arr, n = 1) => arr.slice(-n);
     ```
-1. union
+1. <div id="union">union</div>
     ```
     const union = (a, b) => Array.from(new Set([...a, ...b]));
     ```
-1. unzip
+1. <div id="unzip">unzip</div>
     ```
     const unzip = arr =>
         arr.reduce(
@@ -386,11 +386,11 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     unzip([['a', 1, true], ['b', 2, false]]); // [['a', 'b'], [1, 2], [true, false]]
     unzip([['a', 1, true], ['b', 2]]); // [['a', 'b'], [1, 2], [true]]
     ```
-1. without
+1. <div id="without">without</div>
     ```
     const withou = (arr, ...args) => arr.filter(v => !args.includes(v))
     ```
-1. xProd
+1. <div id="xProd">xProd</div>
     ```
     // example
     xProd([1, 2], ['a', 'b']); // [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
@@ -400,17 +400,17 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     ```
 
 ### Function
-1. compose
+1. <div id="compose">compose</div>
     ```
     const compose = (...fns) => fns.reduce((f,g) => （...args）=> f(g(...args)));
     ```
-1. curry：利用bind，提前传入参数
+1. <div id="curry">curry：利用bind，提前传入参数</div>
     ```
     const curry = (fn, arity = fn.length, ...args) =>
     // arity为fn形参个数
         arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
     ```
-1. debounce：防抖，间隔到一定时间才会执行
+1. <div id="debounce">debounce：防抖，间隔到一定时间才会执行</div>
     ```
     const debounce = (fn, ms = 0) => {
         let timeoutId;
@@ -429,16 +429,16 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         }, 250)
     ); // Will log the window dimensions at most every 250ms
     ```
-1. defer： 延迟调用function直到当前调用栈清空为止，类似使用延时为0的setTimeout方法。对于执行开销大的计算和无阻塞UI线程的HTML渲染时候非常有用
+1. <div id="defer">defer： 延迟调用function直到当前调用栈清空为止，类似使用延时为0的setTimeout方法。对于执行开销大的计算和无阻塞UI线程的HTML渲染时候非常有用</div>
     ```
     // setTimeout第二个参数后面的参数都是传入fn作为参数
     const defer = (fn, ...args) => setTimeout(fn, 1, ...args);
     ```
-1. delay
+1. <div id="delay">delay</div>
     ```
     const delay = (fn, wait, ...args) => setTimeout(fn, wait, ...args);
     ```
-1. hz: 函数每秒执行的次数
+1. <div id="hz">hz: 函数每秒执行的次数</div>
     ```
     const hz = (fn, iterations = 100) => {
         // 和Date.now)不同的是,window.performance.now()返回的时间戳没有被限制在一毫秒的精确度内,而它使用了一个浮点数来达到微秒级别的精确度
@@ -448,7 +448,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return (1000 * iterations) / (performance.now() - before);
     }
     ```
-1. memoize
+1. <div id="memoize">memoize</div>
     ```
     const memoize = fn => {
         const cache = new Map();
@@ -459,13 +459,13 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return cached;
     }
     ```
-1. negate: 取否一个谓词函数
+1. <div id="negate">negate: 取否一个谓词函数</div>
     ```
     const negate = fn => (...args) => !fn(...args);
     // example
     [1, 2, 3, 4, 5, 6].filter(negate(n => n % 2 === 0)); // [ 1, 3, 5 ]
     ```
-1. once
+1. <div id="once">once</div>
     ```
     const once = fn =>
         let called = false;
@@ -475,15 +475,15 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
             return fn.apply(this, args);
         }
     ```
-1. partial
+1. <div id="partial">partial</div>
     ```
     const partial = (fn, ...partials) => (...args) => fn(...partials, ...args);
     ```
-1. sleep
+1. <div id="sleep">sleep</div>
     ```
     const sleep = ms => new Promise(resolve) => setTimeout(resolve, ms));
     ```
-1. times: 迭代n次
+1. <div id="times">times: 迭代n次</div>
     ```
     const times = (n, fn, context = undefined) => {
         let i = 0;
@@ -496,7 +496,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     console.log(output); // 01234
     ```
 
-1. uncurry: 一次传入过个参数
+1. <div id="uncurry">uncurry: 一次传入过个参数</div>
     ```
     const uncurry = (fn, n = 1) {
         const next = acc => args => args.reduce((x, y) => x(y), acc);
@@ -509,7 +509,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     uncurriedAdd(1, 2, 3); // 6
     ```
 
-1. when
+1. <div id="when">when</div>
     ```
     // 第一个断言函数为true时，返回执行第二个函数的结果
     const when = (pred, whenTrue) => x => (pred(x) ? whenTure(x) : x);
@@ -520,7 +520,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
     doubleEvenNumbers(1); // 1
     ```
 ### Obejct
-1. deepClone
+1. <div id="deepClone">deepClone</div>
     ```
     const deepClone = obj => {
         let clone = Object.assign({}, obj);
@@ -530,7 +530,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return Array.isArray(obj) ? (clone.length = obj.length) && Array.from(clone) : clone;
     }
     ```
-1. deepFreeze
+1. <div id="deepFreeze">deepFreeze</div>
     ```
     const deepFreeze = obj => {
         Object.keys(obj).forEach(
@@ -540,7 +540,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return Object.freeze(obj);
     }
     ```
-1. dig: 读取深层次的属性
+1. <div id="dig">dig: 读取深层次的属性</div>
     ```
     const dig = (obj, target) =>
         target in obj
@@ -550,12 +550,12 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
             if (typeof val === 'object') return dig(val, target);
         }, undefined);
     ```
-1. findKey
+1. <div id="findKey">findKey</div>
     ```
     const findKey = (obj, fn) => Object.keys(obj).find(key => fn(obj[key], key, obj));
     ```
 
-1. flattenObject
+1. <div id="flatten">flattenObject</div>
     ```
     const flattenObject = (obj, prefix = '') =>
         Object.keys(obj).reduce((acc, k) => {
@@ -567,12 +567,12 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
 
     flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }
     ```
-1. forOwn
+1. <div id="forOwn">forOwn</div>
 Object.keys()用于获取对象自身所有的可枚举的属性值，但不包括原型中的属性，然后返回一个由属性名组成的数组
     ```
     const forOwn = (obj, fn) => Object.keys(obj).forEach(key => fn(obj[key], key, obj));
     ```
-1. functions
+1. <div id="functions">functions</div>
     ```
     const functions = (obj, inherited = false) =>
         (inherited
@@ -590,7 +590,7 @@ Object.keys()用于获取对象自身所有的可枚举的属性值，但不包�
     functions(new Foo(), true); // ['a', 'b', 'c']
     ```
 
-1. invertKeyValues
+1. <div id="invertKeyValues">invertKeyValues</div>
     ```
     const invertKeyValues = (obj, fn) => 
         Object.keys(obj).reduce((acc, key) => {
@@ -600,7 +600,7 @@ Object.keys()用于获取对象自身所有的可枚举的属性值，但不包�
             return acc;
         }, {});
     ```
-1. mapKeys
+1. <div id="mapKeys">mapKeys</div>
     ```
     const mapKeys = (obj, fn) => {
         Object.keys(obj).reduce((acc, key) => {
@@ -609,12 +609,12 @@ Object.keys()用于获取对象自身所有的可枚举的属性值，但不包�
         }, {})
     }
     ```
-1. matches: 第一个对象包含第二个对象的所有属性
+1. <div id="matches">matches: 第一个对象包含第二个对象的所有属性</div>
     ```
     const matches = (obj, source) =>
         Object.keys(source).every(key => obj.hasOwnProperty(key) && obj[key] === source[key]);
     ```
-1. merge:合并两个对象，对象的属性也是合并，而不是extend的覆盖
+1. <div id="merge">merge:合并两个对象，对象的属性也是合并，而不是extend的覆盖</div>
     ```
     const merge = (...objs) =>
         [...objs].reduce(
