@@ -1,3 +1,5 @@
+[30-seconds of code](https://github.com/30-seconds/30-seconds-of-code)
+
 # Adapter
 - [ary:忽略多余的参数](#ary)
 - [collectInto:传入参数合并成数组](#collectInto)
@@ -15,7 +17,22 @@
 - [deepFlatten](#deepFlatten)
 - [difference:返回第一个数组中不在第二个数组的元素](#difference)
 - [differenceBy](#differenceBy)
--
+- [drop: 剔除左侧前n个元素](#drop)
+- [dropRight](#dropRight)
+- [everyNth](#everyNth)
+- [filterNonUnique](#filterNonUnique)
+- [flatten](#flatten)
+- [groupBy](#groupBy)
+- [initial: 返回除最后一个元素的数组](#initial)
+- [initialize2DArray](#initialize2DArray)
+- [initializeArrayWithRange](#initializeArrayWithRange)
+- [intersection: 两个数组交集](#intersection)
+- [isSorted:是否排序，1为正序，-1为降序，0为未排序](#isSorted)
+- [maxN](#maxN)
+- [partition: 将数组内元素分为两类](#partition)
+- [reduceWhich：返回最大或最小值](#reduceWhich)
+- [remove:过滤数组，并在原数组中去掉这些过滤出来的值](#remove)
+- [sample: 随机返回数组元素](#sample)
 
 ### Adapter
 1. <div id="ary">ary</div>
@@ -167,7 +184,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         return a.filter(v => !s.has(fn(v)));
     }
     ```
-1. <div id="drop">drop</div>: 剔除左侧前n个元素
+1. <div id="drop">drop</div>
     ```
     const drop = (arr, n = 1) => arr.slice(n);
 
