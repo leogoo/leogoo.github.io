@@ -544,7 +544,7 @@ arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的�
         Object.keys(clone).foreach(
             key => (clone[key] = typeof obj[obj] === 'object' ? deepClone(obj[key]) : obj[key]);
         );
-        return Array.isArray(obj) ? (clone.length = obj.length) && Array.from(clone) : clone;
+        return Array.isArray(obj) ? (clone.length == obj.length) && Array.from(clone) : clone;
     }
     ```
 1. <div id="deepFreeze">deepFreeze</div>

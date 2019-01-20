@@ -128,21 +128,6 @@
         // 相当于下面这样的结果
         this.setState({a:4, b:5, c:6})
         ```
-1. 浅拷贝：
-    - Object.assign(target, ...sources)
-        ```
-        let a = {
-            name: '1'
-        };
-        let b = {
-            age: 12
-        };
-        let c = Object.assign(a, b);
-        console.log(a === c); // true
-        ```
-    - 扩展符：b = {...obj}
-    - Array.protptype.slice, Array.prototype.concat
-1. 深拷贝
 1. 扩展对象
     - 对象是可扩展的：即可以为他们添加新的属性。以及它们的 __proto__ 属性可以被更改
     - Object.preventExtensions:创建一个不可扩展的对象，对属性没有限制
@@ -165,5 +150,23 @@
     console.log(Object.isSealed(oneProp));// true
     console.log(Object.isFrozen(oneProp));// false， 属性p可写
     ```
+1. Array.from() 方法从一个类似数组或*可迭代对象*中创建一个新的数组实例
+    ```
+    console.log(Array.from([1, 2, 3], x => x + x));
+    // expected output: Array [2, 4, 6]
+    ```
+1. arr.concat()参数可是**序列化数值**，或者是数组
+    ```
+    let arr = [1, 2];
+    arr.concat(3, 4); //[1, 2, 3, 4]
+    arr.concat([3, 4]); //[1, 2, 3, 4]
+    arr.concat(3, [4]); //[1, 2, 3, 4]
+    ```
+1. slice(start, end)
+    - 没有end则选取start到结尾
+    - 参数为负数，表示从数组尾部开始
+    - slice(0)克隆数组
+
+1. arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的第一个元素下标
 1. 防抖debounce：触发n秒后执行，以新的事件的时间为准，n 秒后才执行
 1. 节流throttle：持续触发事件，每隔n秒时间，只执行一次事件
