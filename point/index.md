@@ -170,3 +170,4 @@
 1. arr.findIndex(callback(element, index, array), thisArg): 返回满足条件的第一个元素下标
 1. 防抖debounce：触发n秒后执行，以新的事件的时间为准，n 秒后才执行
 1. 节流throttle：持续触发事件，每隔n秒时间，只执行一次事件
+1. 类的内部所有定义的方法，都是不可枚举的， 所以不能用...展开class内的方法会
