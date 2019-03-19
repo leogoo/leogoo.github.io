@@ -109,6 +109,8 @@ this.setState(function(prevState, props) {
     }
     ```
 - 在constructor函数中bind（this）
+- React组件绑定事件本质上是代理到document上的，其实就是一个冒泡机制，子节点传给父节点再传给祖父节点最后在document上执行方法。可以使用e.nativeEvent.stopImmediatePropagation() 阻止事件冒泡
+- 在react组件的事件方法中使用setState就要注意是否会覆盖多次，因为setState是异步执行的
 
 ### 六、根据条件选择性渲染元素
 - if或条件运算符来创建一个表示当前状态的元素，让react匹配然后更新

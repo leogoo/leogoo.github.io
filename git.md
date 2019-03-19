@@ -9,6 +9,8 @@
 - git clean -fd:删除untraked files和目录
 - git checkout . 删除所有未加入缓存区的文件
 - git diff <分支名>:比较当前分支与指定分支代码的差别
+- git log filename: 查看单个文件的提交记录
+- git show commitID filename: 查看某次提交对文件的修改
 
 ### Git reset
 1. 使用--soft就仅仅将头指针恢复，已经add的缓存以及工作空间的所有东西都不变。

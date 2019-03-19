@@ -10,4 +10,3 @@
 1. [自动生成html](./7)
 1. [Clean Plugin and Watch Mode](./8)
 1. [开发模式与webpack-dev-server](./9)
-1. [开发模式和生产模式](./10)

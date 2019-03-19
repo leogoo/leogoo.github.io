@@ -33,6 +33,9 @@
 - [reduceWhich：返回最大或最小值](#reduceWhich)
 - [remove:过滤数组，并在原数组中去掉这些过滤出来的值](#remove)
 - [sample: 随机返回数组元素](#sample)
+- [shuffle：乱序](#shuffle)
+- [similarity: 交集](#similarity)
+- [sortedIndex:排序数组中的索引](#sortedIndex)
 
 ### Adapter
 1. <div id="ary">ary</div>
