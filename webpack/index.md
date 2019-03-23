@@ -1,4 +1,4 @@
-### 最简单的webpack使用方式
+### 一、最简单的webpack使用方式
 1. 全局命令
     1. 安装： `yarn global add webpack webpack-cli`
     1. 执行全局命令： `webpack index.js --mode development`，默认是production模式，打包文件后的文件是压缩过的
@@ -14,7 +14,7 @@
         ```
     1. 打包： `yarn build`,生成dist/main.js
 
-### 打包js同时生成html
+### 二、打包js同时生成html
 1. 插件HtmlWebpackPlugin，生成html且自动将打包生成的js文件导入
 1. webpack.config.js
     ```js
@@ -26,7 +26,7 @@
     ```
 1. 生成文件，dist目录下main.js和index.html
 
-### 多入口文件
+### 三、多入口文件
 生成多个打包文件dist/app.js, dist/home.js, 直接利用entry指定输出文件名
 ```js
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
 };
 ```
 
-### output
+### 四、output
 1. 指定输出文件名, 生成文件dist/bundle.js
     ```js
     module.exports = {
@@ -80,7 +80,7 @@ module.exports = {
     }
     ```
 
-### loader
+### 五、loader
 1. loader让webpack能够去处理那些非JavaScript文件（webpack自身只理解JavaScript）。loader可以将所有类型的文件转换为 webpack能够处理的有效模块
 1. css-loader的作用是在js中import css文件时可以解析css文件；style-loader则是将css引入html中
     ```js
@@ -129,7 +129,7 @@ module.exports = {
     ```
 1. 使用mini-css-extract-plugin插件拆分css
 
-### 写一个plugin
+### 六、写一个plugin
 1. loader 被用于转换某些类型的模块，而插件则可以用于执行范围更广的任务
 1. webpack 插件是一个具有 apply 属性的 JavaScript 对象。apply 属性会被 webpack compiler 调用，并且 compiler 对象可在整个编译生命周期访问
     ```js
@@ -143,7 +143,7 @@ module.exports = {
     }
     ```
 
-### 用webpack转换TypeScript
+### 七、用webpack转换TypeScript
 1. 直接转换
     1. 安装： `npm install -g tsc`
     1. 转换： `tsc filename`
@@ -173,7 +173,7 @@ module.exports = {
         }
         ```
 
-### 热更新
+### 八、热更新
 1. 安装webpack-dev-server: `yarn add -D webpack-dev-server`
 1. 配置script： `dev: webpack-dev-server`
 1. 配置webpack.config.js
@@ -200,7 +200,7 @@ module.exports = {
     }
     ```
 
-### 同时支持开发和发布环境
+### 九、同时支持开发和发布环境
 1. 指定配置文件
     ```js
     script: {
@@ -284,6 +284,7 @@ module.exports = {
             })
         ]
     })
+    ```
     html模板中的title，`<%= htmlWebpackPlugin.options.title %>`
 
-### 配置一个react项目
+### 九、配置一个react项目

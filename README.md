@@ -21,7 +21,7 @@
     - [react源码](./react/yuanma)
     - [react中Context API](./react/context)
     - [react提供的Hook Api](./react/hook)
-    - [react上的lodash————recompose](./react/recompose)
+    - [react上的lodash——recompose](./react/recompose)
     - [深入理解redux](./react/redux)
     - [学习react-redux](./react/react-redux)
     - [redux-saga](./react/saga)

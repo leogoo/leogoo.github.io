@@ -675,3 +675,108 @@ js是动态语言类型，无需进行类型监测。利用鸭子类型概念，
 
 ### 享元模式
 1. 内部状态和外部状态
+    1. 可以被对象共享的属性通常被划分为内部状态
+    1. 外部状态取决于具体的场景，并根据场景而变化
+1. 享元模式的通用结构
+1. 对象池
+    ```js
+    var objectPoolFactory = function(createObjFn) {
+        var objectPool = [];
+        return {
+            create: function() {
+                var obj = objectPool.length === 0
+                    ? createObjFn.apply(this, arguments)
+                    : objectPool.shift();
+                return obj;
+            },
+            recover: function(obj) {
+                objectPool.push(obj);
+            }
+        };
+    };
+
+    var iframeFactory = objectPoolFactory(function() {
+        var iframe = document.createElement('iframe');
+        document.body.appendChild(iframe);
+        
+        iframe.onload = function() {
+            iframe.onload = null;// 防止重复加载
+            iframeFactory.recover(iframe);// 回收节点
+        }
+
+        return iframe;
+    });
+
+    var iframe1 = iframeFactory.create();
+    iframe1.src = 'http:// baidu.com';
+    ```
+
+### 职责链模式
+1. 某个节点不能处理请求，则返回一个特定的字符串 'nextSuccessor'来表示该请求需要继续往后面传递
+    ```js
+    var order500 = function(orderType, pay, stock) {
+        if (orderType === 1 && pay === true) {
+            console.log('');
+        }
+        else {
+            return 'nextSuccessor';
+        }
+    };
+
+    var order200 = function(orderType, pay, stock) {
+        if (orderType === 2 && pay === true) {
+            console.log('');
+        }
+        else {
+            return 'nextSuccessor';
+        }
+    };
+
+    var orderNormal = function(orderType, pay, stock) {
+        if (stock > 0) {
+            console.log('');
+        }
+        else {
+            console.log('');
+        }
+    };
+
+    var Chain = function(fn) {
+        this.fn = fn;
+        this.successor = null;
+    };
+    Chain.prototype.setNextSuccessor = function(successor) {
+        return this.successor = successor;
+    };
+    Chain.prototype.passRequest = function() {
+        var ret = this.fn.apply(this, arguments);
+        if (ret === 'nextSuccessor') {
+            return this.successor && this.successor.passRequest.apply(this.successor, arguments);
+        }
+        return ret;
+    };
+    // 包装职责链中的节点，并制定顺序
+    var chainOrder500 = new Chain(order500);
+    var chainOrder200 = new Chain(order200);
+    var chainOrderNormal = new Chain(orderNormal);
+
+    chainOrder500.setNextSuccessor(chianOrder200);
+    chainOrder200.setNextSuccessor(chianOrderNormal);
+    // 最后请求只用传递给第一个节点
+    chainOrder500.passRequest(1, true, 200);
+    ```
+1. 异步职责链
+    ```js
+    // 手动传递请求给下一个节点
+    Chain.prototype.next = function() {
+        return this.successor && this.successor.passRequest.apply(this.successor, arguments);
+    };
+
+    var fn1 = new Chain(function {
+        var self = this;
+        setTimeout(function() {
+            self.next();
+        }, 1000);
+    })
+    ```
+1. 最大优点就是解耦了请求发送者和 N 个接收者之间的复杂关系，由于不知道链中的哪个节点可以处理你发出的请求，所以你只需把请求传递给第一个节点即可

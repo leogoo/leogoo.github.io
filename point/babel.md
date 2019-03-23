@@ -3,29 +3,24 @@
 1. 通过插件构建，就是插件集合
 
 ### babel使用
-1. 配置
+1. 利用配置文件babel.config.js编译
     1. 安装：
         `yarn add -D @babel/core @babel/cli @babel/preset-env`
         `yarn add @babel/polyfill`
     1. 配置文件babel.config.js
     ```js
-    module.exports = function (api) {
-        api.cache(true);
-        const presets = [
-            ["@babel/env", {
-                targets: {
-                edge: "17",
-                firefox: "60",
-                chrome: "67",
-                safari: "11.1"
-                },
-                useBuiltIns: "usage"
-            }]
-        ];
-        return {
-            presets
-        }
-    }
+    const presets = [
+        ["@babel/env", {
+            targets: {
+            edge: "17",
+            firefox: "60",
+            chrome: "67",
+            safari: "11.1"
+            },
+            useBuiltIns: "usage"
+        }]
+    ];
+    module.exports = {presets};
     ```
     1.  编译
     将src下所有文件编译到dist中
@@ -51,8 +46,9 @@
 1. 指定插件编译
     ```js
     "script": {
-        "build": "babel src -d dist",
-        "build:arrow": "babel src -d dist --plugins=@babel/plugin-transform-arrow-functions"
         "build:env": "babel src -d dist --presets=@babel/env"
     }
     ```
+1. polyfill与preset-env
+    1. env preset只会为目标浏览器中没有的功能加载转换插件
+    1. polyfill完整模拟ES2015+环境

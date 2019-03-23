@@ -3,29 +3,30 @@
 - jsx中利用{}可以嵌入表达式，jsx表达式本身可看做常规js对象
 - 属性使用驼峰命名法className
 - Babel将jsx编译为React.createElement()调用
-```
-const element = (
-    <h1 className=“greeting”>
-        Hello world
-    </h1>
-);
+    ```js
+    const element = (
+        `<h1 className=“greeting”>
+            Hello world
+        </h1>`
+    );
 
-// 等同于
-const element = React.createElement(
-    ‘h1’,
-    {className: ‘greeting’},
-    ‘Hello world'
-);
+    // 等同于
+    const element = React.createElement(
+        ‘h1’,
+        {className: ‘greeting’},
+        ‘Hello world'
+    );
 
-// 实质是
-const element = {
-    type: ‘h1’,
-    props: {
-        className:’greeting’,
-        children: ‘hello world’
-    }
-);
-```
+    // 实质是
+    const element = {
+        type: ‘h1’,
+        props: {
+            className:’greeting’,
+            children: ‘hello world’
+        }
+    );
+    ```
+
 ### 二、渲染元素
 - 与浏览器DOM元素不同，React元素是纯对象
 - 利用ReactDOM.render()将react元素渲染到dom节点
@@ -41,6 +42,7 @@ function Welcome(props) {
 
 const element = <Welcome name='tom' />
 ```
+
 - react组件就像是一个以props为参数的纯函数，组件不能修改自己的props
 
 ### 四、state管理和生命周期钩子
@@ -64,24 +66,17 @@ class Test extends React.Component {
     1. 不要直接修改state，使用this.setState({})
     2. state更新可能是异步的，这样批量修改一次render性能更好
     3. 调用this.setState后，将传入的对象合并到当前state
-```js
-// 不能依赖this.props和this.state的值来计算下一个state
-this.setState({
-    counter: this.state.counter + this.props.increment
-});
+        ```js
+        // 不能依赖this.props和this.state的值来计算下一个state
+        this.setState({
+            counter: this.state.counter + this.props.increment
+        });
 
-// 利用回调函数，第一个参数是之前的state，第二个参数是更新时的props
-this.setState((prevState, props) => ({
-    counter: prevState.counter + props.increment
-}));
-
-// 等同于
-this.setState(function(prevState, props) {
-    return {
-        counter: prevState.counter + props.increment
-    }
-})
-```
+        // 利用回调函数，第一个参数是之前的state，第二个参数是更新时的props
+        this.setState((prevState, props) => ({
+            counter: prevState.counter + props.increment
+        }));
+        ```
 - 数据是向下流动
     1. 将state作为props传给子组件
     2. state只会影响组件树『下面』的组件，即只会影响到子组件
@@ -89,20 +84,20 @@ this.setState(function(prevState, props) {
 ### 五、事件处理
 - React事件使用驼峰命名
 - jsx传递一个函数作为事件处理程序而不是字符串
-```js
-// html
-<button onclick="clickHandler()">
-    click
-</button>
+    ```html
+    // html
+    <button onclick="clickHandler()">
+        click
+    </button>
 
 
-// React
-<Button onClick={clickHandler}>
-    click
-</Button>
-```
+    // React
+    <Button onClick={clickHandler}>
+        click
+    </Button>
+    ```
 - 不能返回fasle来防止React中的默认行为，必须显示调用preventDefault
-    ```javascript
+    ```js
     function clickHandler(e) {
         e.preventDefault();
         console.log(66666);
@@ -110,7 +105,7 @@ this.setState(function(prevState, props) {
     ```
 - 在constructor函数中bind（this）
 - React组件绑定事件本质上是代理到document上的，其实就是一个冒泡机制，子节点传给父节点再传给祖父节点最后在document上执行方法。可以使用e.nativeEvent.stopImmediatePropagation() 阻止事件冒泡
-- 在react组件的事件方法中使用setState就要注意是否会覆盖多次，因为setState是异步执行的
+- 在react组件的事件方法中使用setState就要注意是否会覆盖多次
 
 ### 六、根据条件选择性渲染元素
 - if或条件运算符来创建一个表示当前状态的元素，让react匹配然后更新
@@ -341,7 +336,7 @@ this.setState(function(prevState, props) {
         name: React.PropTypes.string.required
     };
     App.defaultProps = {
-        name: ‘tom’
+        name: 'tom'
     };
     ```
 
@@ -399,13 +394,13 @@ this.setState(function(prevState, props) {
 - 使用生产环境的配置进行构建
 - 使用shouldComponentUpdate跳过组件更新，避免重复处理DOM
 - 使用不突变的数据结构，object.assign、扩展符...返回新的对象
-```js
-click() {
-    this.setState(prevState => ({
-        words: [...prevState.words, 'zhangyatao']
-    }));
-}
-```
+    ```js
+    click() {
+        this.setState(prevState => ({
+            words: [...prevState.words, 'zhangyatao']
+        }));
+    }
+    ```
 
 ### 十六、不使用es6，使用React.createClass
 - 优先使用es6的写法

@@ -99,7 +99,51 @@
         }
     }
     ```
-1. Link
+1. Route：捕获路径的变化，渲染对应的组件
+    ```js
+    import RouterContext from "./RouterContext";
+
+    class Route extends React.Component {
+        render() {
+            return (
+                <RouterContext.Consumer>
+                    {
+                        context => {
+                            const location = this.props.location || context.location;
+                            const match = this.props.computeMatch
+                                ? this.props.computedMatch
+                                : this.props.path
+                                    ? matchPath(location.pathname, this.props)
+                                    : context.match;
+                            const props = {...context, location, match};
+                            let {children, component, render} = this.props;
+
+                            if (typeof children === "function") {
+                                children = children(props);
+                            }
+                            return (
+                                <RouterContext.Provider value={props}>
+                                    {
+                                        children && !isEmptyChildren(children)
+                                            ? children
+                                            : props.match
+                                                ? component
+                                                    ? React.createElement(component, props)
+                                                    : render
+                                                        ? render(props)
+                                                        : null
+                                                : null
+                                    }
+                                </RouterContext.Provider>
+                            )
+                        }
+                    }
+                </RouterContext.Consumer>
+            )
+        }
+    }
+    ```
+1. Link:控制路径的变化
     ```js
     import {createLocation} from 'history';
 
@@ -156,50 +200,6 @@
         to: PropTypes.isRequired
     };
 
-    ```
-1. Route
-    ```js
-    import RouterContext from "./RouterContext";
-
-    class Route extends React.Component {
-        render() {
-            return (
-                <RouterContext.Consumer>
-                    {
-                        context => {
-                            const location = this.props.location || context.location;
-                            const match = this.props.computeMatch
-                                ? this.props.computedMatch
-                                : this.props.path
-                                    ? matchPath(location.pathname, this.props)
-                                    : context.match;
-                            const props = {...context, location, match};
-                            let {children, component, render} = this.props;
-
-                            if (typeof children === "function") {
-                                children = children(props);
-                            }
-                            return (
-                                <RouterContext.Provider value={props}>
-                                    {
-                                        children && !isEmptyChildren(children)
-                                            ? children
-                                            : props.match
-                                                ? component
-                                                    ? React.createElement(component, props)
-                                                    : render
-                                                        ? render(props)
-                                                        : null
-                                                : null
-                                    }
-                                </RouterContext.Provider>
-                            )
-                        }
-                    }
-                </RouterContext.Consumer>
-            )
-        }
-    }
     ```
 
 1. 使用示例
