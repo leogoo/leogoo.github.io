@@ -34,3 +34,5 @@
     let back = callback + '(' + JSON.stringify(result) + ')';
     res.end(back);
     ```
+
+### postMessage

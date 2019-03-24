@@ -15,7 +15,7 @@ hash路由一个明显的标志是带有#,我们主要是通过监听url中的ha
     ```
 1. 实现路由hash存储于执行
     ```js
-    class Routers {
+    class Routes {
         constructor() {
             this.routes = {};
             this.currentUrl = '';
@@ -35,7 +35,7 @@ hash路由一个明显的标志是带有#,我们主要是通过监听url中的ha
     ```js
     class Routes {
         constructor() {
-            this.route = {};
+            this.routes = {};
             this.currentUrl = '';
             this.refresh = this.refresh.bind(this);
             window.addEventListener('load', this.refresh, false);
