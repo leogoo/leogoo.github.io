@@ -172,4 +172,84 @@
 1. 节流throttle：持续触发事件，每隔n秒时间，只执行一次事件
 1. 类的内部所有定义的方法，都是不可枚举的， 所以不能用...展开class内的方法会
 1. event.target返回触发事件的元素, event.currentTarget返回绑定事件的元素
-1. ref用在react组件上得到的是一个ReactElement对象，在原生组件上则是dom
+1. ref用在react组件上得到的是一个ReactElement对象，在原生组件上则是dom。获取ref是方式有很多
+    1. 字符串
+    1. 回调, `ref = {(input) => {this.textInput = input}}`
+    1. createRef
+        ```js
+        class A extends React.Component {
+            constructor() {
+                this.inputRef = React.createRef();
+            }
+            render() {
+                return {
+                    <Input ref={this.inputRef} />
+                }
+            }
+        }
+        ```
+1. 利用React.forwardRef将ref传给子组件，用于访问子组件中的DOM元素
+    ```js
+    const Child = React.forwardRef((props, ref) => (
+        <input ref={ref} />
+    ));
+    class Parent extends React.Component {
+        constructor() {
+            this.inputRef = React.createRef();
+        }
+        componentDidMount() {
+            console.log(this.inputRef.current);
+        }
+        render() {
+            return (
+                <Child ref={this.inputRef} />
+            );
+        }
+    }
+    ```
+1. React.createContext更方便的使用context
+    1. consumer组件从组件树上层最接近的匹配的Provider读取context
+    1. 没有匹配的Provider则使用创建context时的默认值
+    1. 一个Provider可以对应多个consumer
+    ```js
+    // 创建一个 theme Context,  默认 theme 的值为 light
+    const ThemeContext = React.createContext('light');
+
+    function ThemedButton(props) {
+        // ThemedButton 组件从 context 接收 theme
+        return (
+            <ThemeContext.Consumer>
+                {theme => <Button {...props} theme={theme} />}
+            </ThemeContext.Consumer>
+        );
+    }
+
+    // 中间组件
+    function Toolbar(props) {
+        return (
+            <div>
+                <ThemedButton />
+            </div>
+        );
+    }
+
+    class App extends React.Component {
+        render() {
+            return (
+                <ThemeContext.Provider value="dark">
+                    <Toolbar />
+                </ThemeContext.Provider>
+            );
+        }
+    }
+    ```
+1. 解构默认值只对undefined生效
+    ```js
+    const props = {
+        a: 123,
+        b: ''
+    };
+    const {a=1, b=2, c=3} = props;
+    console.log(a, b, c);// 123, '', 3
+    ```
+1. react元素中插入html `dangerouslySetInnerHTML={{ __html: content }}`

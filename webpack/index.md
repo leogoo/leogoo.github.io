@@ -18,7 +18,7 @@
 1. 插件HtmlWebpackPlugin，生成html且自动将打包生成的js文件导入
 1. webpack.config.js
     ```js
-    var HtmlWebpackPlugin = require('html-webapck-plugin');
+    var HtmlWebpackPlugin = require('html-webpack-plugin');
     module.exports = {
         entry: './src/index.js',
         plugins: [new HtmlWebpackPlugin()]
