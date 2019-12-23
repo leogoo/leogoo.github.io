@@ -1,16 +1,11 @@
-const deepClone = obj => {
-    let clone = Object.assign({}, obj);
-    Object.keys(clone).forEach(
-        key => (clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
-    );
-    return Array.isArray(obj) && obj.length
-                // 利用Array.from生成数组
-                ? (clone.length = obj.length) && Array.from(clone)
-                : Array.isArray(obj)
-                    ? Array.from(clone)
-                    : clone;
+const curry = (fn, ...args) => {
+    return (args.length >= fn.length)
+        ? fn(...args)
+        : (...argsNew) => curry(fn, ...args, ...argsNew)
 };
+const sum = (a, b, c, d, e) => a + b+ c+d+e;
 
-let arr = [];
-let arr2 = deepClone(arr);
-console.log(arr, arr2);
+const fn = curry(sum, 1, 2, 3);
+console.log(fn(4, 5))
+console.log(curry(sum, 1, 2, 3, 4, 5));
+console.log(curry(sum, 1, 2, 3, 4, 5, 6))

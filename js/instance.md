@@ -2,6 +2,7 @@
 
 先放张很关键的图：
 <img src='../img/js/instance.png>
+
 ### 原型
 1. 每个函数都有一个prototype属性，通过new出来的对象会有一个__proto__属性指向构造函数的prototype。
 1. prototype[显式原型]

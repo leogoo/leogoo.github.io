@@ -23,3 +23,9 @@
         }
     }
     ```
+1. 实现移动端0.5px，可以使用transfrom: scaleY(.5);需要注意
+    1. transform会影响垂直显示的优先级，类似加了一个position:relative
+    2. transform-origin 改变被转换元素的位置
+1. 对于inline-block，不能使用margin: 0 auto
+1. 利用getBoundingClientRect方法获取元素对应盒子的宽高和位置属性
+1. 安卓居中问题，可以设置字体font-family: PingFang SC, miui, system-ui, -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, sans-serif;

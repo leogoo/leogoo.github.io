@@ -129,7 +129,7 @@ export const Provider = (props) => {
     
     const [storeState, setState] = useState(store.getState());
 
-    useEffiect(() => {
+    useEffect(() => {
         unsubscribe = store.subscribe(() => {
             const newState = store.getState();
             setState(prevState => (prevState === newState ? prevState : newState));

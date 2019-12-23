@@ -4,7 +4,7 @@
 保持本地和远端同步(pull前记得git stash),多出的文件就都是自己本地修改的
 
 ### 常用命令：
-- git reflog show —date=iso 很关键，很好用
+- git reflog show --date=iso 很关键，很好用
 - git stash -u :缓存所有内容包括新建的
 - git stash list
 - git stash pop stash@{id}

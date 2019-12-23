@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <div>
+            <input id="input"/>
+        </div>
+        <div>
+            <span id="span"></span>
+        </div>
+        <script>
+            const data = {
+                text: '11111'
+            };
+            const input = document.getElementById('input');
+            const span = document.getElementById("span");
+            const proxy = new Proxy(data, {
+                set(target, key, value) {
+                    target[key] = value;
+                    // 数据变化 --> 修改视图
+                    input.value = value;
+                    span.innerHTML = value;
+                    return value;
+                }
+            });
+            input.addEventListener('keyup', (e) => {
+                proxy.text = e.target.value;
+                console.log(proxy);
+            });
+        </script>
+    </body>
+</html>
