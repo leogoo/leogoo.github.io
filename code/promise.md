@@ -125,3 +125,18 @@
             return Promise.reject(3)
         });
         ```
+    1. then中返回新的promise实例,then的onFulfilled方法如果没有返回值，`resolve(undefined)`,生成的promise实例也没有value值，后续的then方法正常执行
+        ```js
+        if (self.status === FULFILLED) {
+            return bridgePromise = new MyPromise((resolve, reject) => {
+                try {
+                    // 状态变为成功，会有相应的 self.value
+                    let x = onFulfilled(self.value);
+                    // 暂时可以理解为 resolve(x)，后面具体实现中有拆解的过程
+                    resolvePromise(bridgePromise, x, resolve, reject);
+                } catch (e) {
+                    reject(e);
+                }
+            })
+        }
+        ```

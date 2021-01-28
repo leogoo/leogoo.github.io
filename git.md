@@ -13,6 +13,7 @@
 - git diff <分支名>:比较当前分支与指定分支代码的差别
 - git log filename: 查看单个文件的提交记录
 - git show commitID filename: 查看某次提交对文件的修改
+- git config core.ignorecase false 区分大小写，项目内运行
 
 ### git命令简写
 - gco: git checkout

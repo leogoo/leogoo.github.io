@@ -1,8 +1,12 @@
 >Hooks 是一个 React 函数组件内一类特殊的函数（通常以 "use" 开头，比如 "useState"），使开发者能够在 function component 里使用 state 和 life-cycles，以及使用 custom hook 复用业务逻辑
 
-##### 最基本的两个hook是useState和useEffect
-useEffect内的回调是组件初始化和每次重渲染都会执行。第二个参数来决定是否执行里面的操作，传入一个空数组 [ ]，那么该 effect 只会在组件 mount 和 unmount 时期执行
-useState 这个方法可以为我们的函数组件带来 local state，它接收一个用于初始 state 的值，返回一对变量
+### 最基本的两个hook是useState和useEffect
+1. useEffect内的回调是组件初始化和每次重渲染都会执行
+  - 第二个参数来决定是否执行里面的操作，传入一个空数组 [ ]，那么该 effect 只会在组件 mount 和 unmount 时期执行
+  - 添加依赖后，会在组件 mount 和 unmount 以及didUpdate的时候执行
+1. useState来修改state值会引起重渲染
+  - state是一个异步过程，setState的时候不要用变量
+  - 可以使用匿名函数(prevState) => {setState(prevState + 1)}
 ```js
 import {useState, useEffect} from 'react';
 
@@ -69,7 +73,11 @@ function TodosUI() {
 ```js
 const { Provider, Consumer } = React.createContext(null);
 function Bar() {
-  return <Consumer>{color => <div>{color}</div>}</Consumer>;
+  return (
+    <Consumer>
+      {color => <div>{color}</div>}
+    </Consumer>
+  );
 }
 function Foo() {
   return <Bar />;

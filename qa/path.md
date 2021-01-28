@@ -22,7 +22,7 @@ console.log(path.resolve('./'));
     /Users/gaolei15/Downloads/test/a
     /Users/gaolei15/Downloads/test/a
     ```
-    1. test内执行node a/test.js
+    1. test内执行node a/b.js
     ```
     /Users/gaolei15/Downloads/test/a
     /Users/gaolei15/Downloads/test/a/b.js

@@ -91,7 +91,6 @@ await只能在async内部使用，等待操作对象promise返回
 - 异步箭头函数: `const foo = async () => {}`
 
 ### 4. 异步函数和回调
-
 await只『等待』直接相关的async函数
 ```js
 async function B(urls) {
@@ -119,5 +118,4 @@ async function B(urls) {
         }
     ));
 }
-
 ```
