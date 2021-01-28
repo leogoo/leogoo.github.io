@@ -1,31 +1,32 @@
 # myBlog
 做点小笔记，就当blog
 
-## JS
-1. 深入js
-    - [闭包](./js/bibao)
-    - [函数](./js/function)
-    - [es6之class](./js/class)
-    - [es6之Async](./js/async)
-    - [es6之proxy](./js/proxy)
-    - [浅拷贝与深拷贝](./js/clone)
-    - [js内存机制](./js/memory)
-    - [js运行机制](./js/run)
-    - [js类与继承](./js/instance)
-    - [利用Event Bus实现组件通信](./js/event)
-    - [localStorage使用](./js/localStorage)
-    - [手写promise](./js/promise)
-    - [js设计模式](./js/pattern)
-1. react
-    - [react入门知识点](./react/react)
-    - [react源码](./react/yuanma)
-    - [react中Context API](./react/context)
-    - [react提供的Hook Api](./react/hook)
-    - [react上的lodash——recompose](./react/recompose)
-    - [深入理解redux](./react/redux)
-    - [学习react-redux](./react/react-redux)
-    - [redux-saga](./react/saga)
-    - [react-router](./react/router)
+## 深入js
+1. [闭包](./js/bibao)
+1. [函数](./js/function)
+1. [es6之class](./js/class)
+1. [es6之Async](./js/async)
+1. [es6之proxy](./js/proxy)
+1. [浅拷贝与深拷贝](./js/clone)
+1. [js内存机制](./js/memory)
+1. [js运行机制](./js/run)
+1. [js类与继承](./js/instance)
+1. [利用Event Bus实现组件通信](./js/event)
+1. [localStorage使用](./js/localStorage)
+1. [手写promise](./js/promise)
+1. [js设计模式](./js/pattern)
+
+## react
+1. [react入门知识点](./react/react)
+1. [react源码](./react/yuanma)
+1. [react中Context API](./react/context)
+1. [react提供的Hook Api](./react/hook)
+1. [react上的lodash——recompose](./react/recompose)
+1. [深入理解redux](./react/redux)
+1. [学习react-redux](./react/react-redux)
+1. [redux-saga](./react/saga)
+1. [react-router](./react/router)
+1. [自定义hook](./react/hook2)
 
 ## CSS
 1. background-size，设置背景图片的尺寸
@@ -62,24 +63,29 @@
 1. 安卓机上经常出现头像不够圆的问题，可以针对安卓对图像放大3，4倍
 
 ## 知识点
-1. [杂](./point/index)
-1. [iframe的使用](./point/iframe)
-1. [跨域](./point/access)
-1. [前端路由](./point/route)
-1. [前端与http请求](./point/http)
-1. [babel基础系列](./point/babel)
+
 
 ## 工程化
 1. [node使用](./project/node)
-1. [webpack基础系列](./webpack/index)
-1. [前端模块化与webpack](./webpack/module)
-1. [Git](./git)
+1. [webpack基础系列](./project/webpack)
+1. [前端模块化与webpack](./project/module)
+1. [Git](./project/git)
+1. [babel基础系列](./project/babel)
+1. [ts](./project/ts)
 
-## 疑难杂症
-1. [iframe与浏览器浏览记录](./qa/iframe)
-1. [node环境下文件路径问题](./qa/path)
+## 小知识点
+1. [iframe的使用](./point/iframe)
+1. [iframe与浏览器浏览记录](./point/iframe2)
+1. [node环境下文件路径问题](./point/path)
 1. [img的获取图片](./point/img)
 1. [img标签与image对象](./point/image)
-1. [开发业务组件自定义下拉框，实现点击组件外关闭下拉框](./qa/sloganSelect)
+1. [开发业务组件自定义下拉框，实现点击组件外关闭下拉框](./point/sloganSelect)
+1. [跨域](./point/access)
+1. [前端路由](./point/route)
+1. [前端与http请求](./point/http)
+
+
+## 算法与数据结构
+1. [链表](./algorithm/linked_list)
 
 ## [工具方法（函数式）](https://leogoo.github.io/utils)

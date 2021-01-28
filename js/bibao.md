@@ -67,6 +67,7 @@ Function.prototype.bind = function () {
 
 ### 偏函数
 >柯里化：在一个函数中首先填充几个参数，然后在返回函数
+
 ```
 Function.prototype.curry = function () {
     // 函数以及预填充的参数被保存在闭包中
@@ -94,7 +95,6 @@ Function.prototype.partial = function () {
     };
 };
 ```
-
 
 ### 函数重载
 1. 函数记忆
