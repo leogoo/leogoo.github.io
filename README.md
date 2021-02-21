@@ -15,6 +15,7 @@
 1. [localStorage使用](./js/localStorage)
 1. [手写promise](./js/promise)
 1. [js设计模式](./js/pattern)
+1. [小知识](./js/index)
 
 ## react
 1. [react入门知识点](./react/react)
@@ -28,7 +29,36 @@
 1. [react-router](./react/router)
 1. [自定义hook](./react/hook2)
 
+## 工程化
+1. [node使用](./project/node)
+1. [webpack基础系列](./project/webpack)
+1. [webpack loader和plugin](./project/loader)
+1. [前端模块化](./project/module)
+1. [Git](./project/git)
+1. [babel基础系列](./project/babel)
+1. [ts](./project/ts)
+1. [错误手机与上报](./project/error)
+
+## 知识点
+1. [iframe的使用](./point/iframe)
+1. [iframe与浏览器浏览记录](./point/iframe2)
+1. [IntersectionObserver](./point/observer)
+1. [node环境下文件路径问题](./point/path)
+1. [img标签与image对象](./point/image)
+1. [开发业务组件自定义下拉框，实现点击组件外关闭下拉框](./point/sloganSelect)
+1. [跨域](./point/access)
+1. [前端路由](./point/route)
+1. [前端与http请求](./point/http)
+1. [promise并发数](./point/promise)
+
+
+## 算法与数据结构
+1. [链表](./algorithm/linked_list)
+
+## [工具方法（函数式）](https://leogoo.github.io/utils)
+
 ## CSS
+1. [多行截断问题](./css/line)
 1. background-size，设置背景图片的尺寸
     1. length: 直接限制图片的宽高,第一个值设置宽度，第二个值设置高度。只设置一个，第二个则为auto
     1. percent: 以父元素的百分比来设置背景图像的宽度和高度，第一个值设置宽度，第二个值设置高度。如果只设置一个值，则第二个值会被设置为 "auto"
@@ -61,31 +91,3 @@
 1. 利用getBoundingClientRect方法获取元素对应盒子的宽高和位置属性
 1. 安卓居中问题，可以设置字体font-family: PingFang SC, miui, system-ui, -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, sans-serif;
 1. 安卓机上经常出现头像不够圆的问题，可以针对安卓对图像放大3，4倍
-
-## 知识点
-
-
-## 工程化
-1. [node使用](./project/node)
-1. [webpack基础系列](./project/webpack)
-1. [前端模块化与webpack](./project/module)
-1. [Git](./project/git)
-1. [babel基础系列](./project/babel)
-1. [ts](./project/ts)
-
-## 小知识点
-1. [iframe的使用](./point/iframe)
-1. [iframe与浏览器浏览记录](./point/iframe2)
-1. [node环境下文件路径问题](./point/path)
-1. [img的获取图片](./point/img)
-1. [img标签与image对象](./point/image)
-1. [开发业务组件自定义下拉框，实现点击组件外关闭下拉框](./point/sloganSelect)
-1. [跨域](./point/access)
-1. [前端路由](./point/route)
-1. [前端与http请求](./point/http)
-
-
-## 算法与数据结构
-1. [链表](./algorithm/linked_list)
-
-## [工具方法（函数式）](https://leogoo.github.io/utils)

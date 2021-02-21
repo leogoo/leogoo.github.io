@@ -1,242 +1,3 @@
-### loader
-loader是指对(文件)进行处理实现打包
-1. file-loader：处理图片、excel、字体等非js文件，直接复制到打包文件目录下，导入的是路径
-    ```js
-    module.export = {
-        module: {
-            // 模块处理规则
-            rules: [
-                {
-                    test: /.\jepg$/,
-                    use: {
-                        loader: "file-loader",
-                        // name是原文件名，ext是扩展名
-                        name: "[name]_[hash].[ext]"，
-                        // 打包目录下的路径
-                        outputPath: "images/"
-                    }
-                }
-            ]
-        }
-    }
-    ```
-1. url-loader是file-loader的升级版，可以将图片处理为base64，导入的就是base64的字符串
-    ```js
-     module.export = {
-        module: {
-            rules: [
-                {
-                    test: /.\jepg$/,
-                    use: {
-                        loader: "url-loader",
-                        // name是原文件名，ext是扩展名
-                        name: "[name]_[hash].[ext]",
-                        // 超过size大小的限制就退化为file-loader,否则base64处理减少http请求
-                        limit: 2049
-                    }
-                }
-            ]
-        }
-    }
-    ```
-1. style-loader: 将css样式利用<style>注入
-1. postcss-loader: 添加浏览器前缀
-    ```js
-    module.export = {
-        module: {
-            rules: [
-                {
-                    test: /.\css$/,
-                    use: [
-                        "style-loader",
-                        "css-loader",
-                        {
-                            loader: "postcss-loader",
-                            options: {
-                                indent: '',
-                                plugins: [
-                                    require("autoprefix"),
-                                    // ...
-                                ]
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    }
-    ```
-1. babel-loader
-    1. @babel/polyfill, 全局变量方式注入
-    ```js
-    module.export = {
-        module: {
-            rules: [
-                {
-                    test: /.\js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: "babel-loader",
-                        options: {
-                            presets: [
-                                [
-                                    "@babel/preset-env",
-                                    {
-                                        target: {
-                                            "Android": '6.0'
-                                        },
-                                        useBuildIns: "usage" // polyfill按需加载, 实验性功能
-                                        corejs: 2
-                                    }
-                                ]
-                            ]
-
-                        }
-                    }
-                }
-            ]
-        }
-    }
-    ```
-    1. @babel/plugin-transform-runtime
-        1. 不会全局污染,也不会对原型上的方法进行polyfill
-        1. 安装： @babel/plugin-transform-runtime @babel/transform
-            ```js
-            module.export = {
-                module: {
-                    rules: [
-                        {
-                            test: /.\js$/,
-                            exclude: /node_modules/,
-                            use: {
-                                loader: "babel-loader",
-                                options: {
-                                    plugins: ["@babel/plugin-transform-runtime"]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-            ```
-1. 自定义loader
-    1. loader就是一个简单的声明式普通函数，最模块的源码进行操作
-        ```js
-        module.export = function (source) {
-            // source是模块代码的字符串
-            return source.replace('xx','yy');
-        }
-        ```
-    1. loader-utils，用来处理loader配置的options参数
-    1. this.query是loader传的options
-    1. this.callback，除了转换的内容还需要返回其他内容，如sourceMap，Ast。loader函数里需要返回undefined
-        ```js
-        module.export = function (source) {
-            this.callback({
-                // 无法装换原内容时的Error
-                err: Error || null,
-                // 装换后的的内容，如上述的source
-                content: string | Buffer,
-                // 用于通过装换后的内容得出原内容的Source Map，方便调试
-                // 我们了解到，SourceMap我们只是会在开发环境去使用，于是就会变成可控制的，
-                // webpack也提供了this.sourceMap去告诉是否需要使用sourceMap，
-                // 当然也可以使用loader的option来做判断，如css-loader
-                sourceMap?: SourceMap,
-                // 如果本次转换同时生成ast语法树，也可以将这个ast返回，方便后续loader需要复用该ast，这样可以提高性能
-                abstractSyntaxTree? AST
-            })
-            return;
-        }
-        ```
-    1. this.async处理loader里的异步事件，loader函数入参的源代码，也要返回处理后的代码字符串
-        ```js
-        module.export = function (source) {
-            // source是模块代码的字符串
-            const callback = this.async();
-            setTimeout(() => {
-                // 第一个参数是err
-                // result是source处理后的结果
-                callback(null, result);
-            }, 1000);
-        }
-        ```
-    1. 路径处理
-        ```js
-        // webpack.config.js
-        module.export = {
-            resolveLoader: {
-                modules: ["node_modules", "./loader"]
-            },
-            module: {
-                rules: {
-                    test: /.\js$/,
-                    use: [
-                        {
-                            loader: 'xxx'
-                        }
-                    ]
-                }
-            }
-        }
-        ```
-
-### plugins
-类似生命周期，在构建过程中利用钩子函数做一些处理
-1. html-webpack-plugin，生成html文件，并将打包产出的js文件导入html
-    1. html中读取配置项参数
-        ```js
-        // webpack.config.js
-        plugins: [new HtmlWebpackPlugin({
-            template: '',
-            filename: '',
-            title: '',
-            inject: true | 'body' | 'head', // true或body导入的js资源放在body
-        })]
-
-        // html
-        htmlWebpackPlugin.options.title
-        ```
-1. clean-webpack-plugin, 打包前删除之前的生成目录
-    ```js
-    const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-    module.export = {
-        plugins: [
-            new CleanWebpackPlugin()
-        ]
-    }
-    ```
-1. mini-css-extract-plugin，抽离css文件,利用<link>注入样式文件，不再使用style-loader注入样式
-    ```js
-    const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-    module.export = {
-        module: {
-            rules: [
-                {
-                    test: /.\css$/,
-                    use: [MiniCssExtractPlugin.loader, "css-loader"]
-                }
-            ]
-        },
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            })
-        ]
-    }
-    ```
-### 自定义plugin
-1. 钩子,插件的执行时机
-    - entryOptions: 在webpack选项中的entry配置项处理过之后，执行插件
-    - afterPlugins: 设置完初始插件之后执行插件
-    - compilation: 编译创建之后，文件生成之前，执行插件
-    - emit: 生成资源到output之前
-    - done: 编译完成
-1. 触发钩子，执行回调
-    - tap：以同步方式触发钩子
-    - tapAsync：以异步方式触发钩子；
-    - tapPromise：以异步方式触发钩子，返回 Promise；
-
-
 ### sourceMap
 1. 源代码与打包后的文件映射关系
     ```js
@@ -310,18 +71,44 @@ module.export = merge(commonConfig, devConfig);
 
 ### 性能优化
 ##### tree shaking
-生产环境下，没有引用的代码不会构建
-```js
-module.export = {
-    optimization: {
-        usedExports: true
-    }
-}
+> 依赖ES6的静态分析,在预编译时便确定要引入的模块。tree shaking只对es6模块生效。
 
-// package.json
-// "sideEffects": false
-"sideEffects": ["*.css"]// 除css文件外，没有被引入的代码不构建，即必须import xxx from xxx;使用
-```
+1. tree shaking会消除导入的模块中并不会被使用的export，export default会导出整个模块，因此tree shaking会失效。
+1. webpack生产环境
+1. babel默认是编译成commonJS模块，需要配置
+    ```js
+    {
+        "presets": [
+            [
+                "@babel/env",
+                {
+                    "modules": false
+                }
+            ],
+        ]
+    }
+    ```
+1. 副作用即使是无用的，webpack也不会消除
+    1. polyfill没有用export导出，webpack会认为是无用代码
+    1. css-loader生成的css模块也被webpack认为是无用代码
+    1. 指定为副作用的文件，就不被消除掉
+    ```js
+    // package.json
+    // "sideEffects": false
+    "sideEffects": [
+        "./src/polyfill.js",
+        "*.@(css|sass|scss)",
+    ]
+    ```
+1. 移除loash中的无用代码
+    1. babel-plugin-lodash，配置babel即可
+        ```js
+        "plugins": ["lodash"]
+        ```
+    1. lodash-webpack-plugin， 配置webpack
+        ```js
+        plugins: [ new LodashModuleReplacementPlugin()]
+        ```
 
 ##### code splitting
 打包的时候将不会改变的公共库分离出来打包，生成多个文件，可以通过多入口方式方式实现，也可以使用optimiztion
@@ -436,8 +223,4 @@ module.export = {
 }
 ```
 
-
-##### 动态加载
-
-##### 多入口多html
-### 原理
+### 引入lodash

@@ -125,6 +125,7 @@
      const savedCallback = useRef<Function>(() => {});
    
      useEffect(() => {
+       // 每次callback发生变化时，都将最新的callback保存起来
        savedCallback.current = callback;
      });
    

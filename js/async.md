@@ -9,7 +9,7 @@ A().then(x => console.log(x));
 ### 2. 利用await处理async异步结果
 await只能在async内部使用，等待操作对象promise返回
 - 如果promise是完成态，await的结果是完成态的值
-- 如果promise是拒绝状态，await会抛出拒绝值
+- 如果promise是拒绝状态，await会抛出拒绝值(拒绝值不是异常，容易搞混)
 
 1. 处理单个async返回值
     ```js
